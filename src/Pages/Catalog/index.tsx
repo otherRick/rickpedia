@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Characters from '../components/Characters';
+import Characters from '../../components/Characters';
+import Heart from '../../components/FavoriteHeart';
 import './styles.css';
+import { ShowHideFavorite } from './_components/ShowHideFavorite';
 
 interface charsProps {
   name: string;
@@ -57,21 +59,29 @@ function Catalog() {
 
   return (
     <>
-      <header>
-        <h1>Character Catalog</h1>
-        <input type='text' value={searchTerm} onChange={handleSearchInputChange} />
-        <button>Search</button>
-        <button onClick={() => setShowFavorites(!showFavorites)}>
-          {showFavorites ? 'Hide Favorites' : 'Show Favorites'}
-        </button>
+      <header className='catalog-header'>
+        <div className='page-title'>
+          <h1>RickPedia</h1>
+          <h2>Character Catalog</h2>
+        </div>
+        <div className='favorite-list'>
+          <input
+            className='search-bar'
+            type='text'
+            value={searchTerm}
+            placeholder='Find a character'
+            onChange={handleSearchInputChange}
+          />
+          <ShowHideFavorite
+            showFavorites={showFavorites ? 'Hide Favorites' : 'Show Favorites'}
+            onHearCLick={() => setShowFavorites(!showFavorites)}
+          />
+        </div>
       </header>
       <div className='catalog-container'>
         {displayedCharacters.map(
           ({ name, image, id, status, species, type, gender, origin, location, episode }) => (
-            <div key={id}>
-              <button onClick={() => handleFavoriteClick(id)}>
-                {favorites.includes(id) ? 'Remove from Favorites' : 'Add to Favorites'}
-              </button>
+            <div className='card' key={id}>
               <Link
                 to={{ pathname: `/${id}` }}
                 state={{
@@ -89,6 +99,7 @@ function Catalog() {
               >
                 <Characters name={name} image={image} />
               </Link>
+              <Heart onHearCLick={() => handleFavoriteClick(id)} />
             </div>
           )
         )}

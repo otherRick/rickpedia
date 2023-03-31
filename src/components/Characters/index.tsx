@@ -1,3 +1,6 @@
+import Heart from '../FavoriteHeart';
+import './styles.css';
+
 interface CharactersProps {
   name: string;
   image: string;
@@ -5,9 +8,9 @@ interface CharactersProps {
 
 function Characters({ name, image }: CharactersProps) {
   return (
-    <div className='card'>
+    <div className='char-card'>
       <h3>{name}</h3>
-      <img src={image} alt={name} width={100} height={100} />
+      <img src={image} alt={name} width={150} height={150} />
     </div>
   );
 }

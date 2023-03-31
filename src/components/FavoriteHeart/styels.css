@@ -1,0 +1,13 @@
+.heart {
+  cursor: pointer;
+}
+
+.heart svg {
+  fill: transparent;
+  stroke: #fb6467ff;
+  stroke-width: 2;
+}
+
+.heart.clicked svg {
+  fill: #fb6467ff;
+}

@@ -1,0 +1,136 @@
+.card {
+  width: 210px;
+  height: 300px;
+  background: #21212112;
+  box-shadow: rgba(0, 0, 0, 0.4) 10px 20px 30px, rgba(0, 0, 0, 0.3) 10px 1px 53px 3px,
+    rgba(1, 0, 0, 0.2) 0px -1px 3px inset;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  user-select: none;
+  font-weight: bolder;
+  color: #fff;
+}
+
+.card:hover {
+  transform: scale(1.021);
+}
+
+.card:active {
+  transform: scale(0.95) rotateZ(1.1deg);
+}
+.catalog-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 80px;
+  margin-top: 80px;
+  padding: 5%;
+}
+
+.card h3 {
+  margin: 0, 10, 0, 10;
+  background-color: transparent;
+}
+
+.catalog-header {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  font-size: 18px;
+  font-weight: bold;
+  justify-content: space-between;
+  padding: 20px;
+  display: flex;
+  height: 15vh;
+}
+
+.favorite-list {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 30vw;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 3.5%;
+  margin-right: 6.5%;
+}
+
+.favorite-list p {
+  margin: 0;
+}
+
+.show-hide-favorite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar {
+  max-width: 190px;
+  height: 2vh;
+  padding: 12px;
+  margin-right: 20%;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 2px 2px 7px 0 rgb(0, 0, 0, 0.2);
+  outline: none;
+  color: dimgray;
+}
+
+.search-bar:invalid {
+  animation: justshake 0.3s forwards;
+  color: red;
+}
+
+@keyframes justshake {
+  25% {
+    transform: translateX(5px);
+  }
+
+  50% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+
+  100% {
+    transform: translateX-(5px);
+  }
+}
+
+.show-favorites {
+  color: #090909;
+  padding: 0.7em 1.7em;
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #e8e8e8;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.show-favorites :active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+h1 {
+  color: #fb6467ff;
+  margin: 0;
+  font-size: 60px;
+}
+
+h2 {
+  color: #24325fff;
+  margin: 0;
+  font-size: 20px;
+}
+
+.page-title {
+  margin-left: 4%;
+}
