@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import './styles.css';
+import { LinedInfo } from '../../components/LinedInfo';
 
 export const Profile = () => {
   const { state } = useLocation();
@@ -29,13 +30,15 @@ export const Profile = () => {
             </div>
             <div className='flip-card-back'>
               <div>
-                <p>{state?.status}</p>
-                <p>{state?.species}</p>
-                <p>{state?.type}</p>
-                <p>{state?.gender}</p>
-                <p>{state?.origin.name}</p>
-                <p>{state?.location.name}</p>
-                <p>{state?.episode[state.id]}</p>
+                <h2>{state?.name}</h2>
+                <LinedInfo title='Status:' content={state?.status} />
+                <LinedInfo title='Specie:' content={state?.species} />
+                <LinedInfo title='Type:' content={state?.type} />
+                <LinedInfo title='Gender:' content={state?.gender} />
+                <LinedInfo title='Name:' content={state?.name} />
+                <LinedInfo title='Origin:' content={state?.origin.name} />
+                <LinedInfo title='Location:' content={state?.location.name} />
+                <LinedInfo title='Episode:' content={state?.episode[state.id]} />
               </div>
             </div>
           </div>

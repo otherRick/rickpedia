@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.container p {
+  color: #917c5dff;
+  margin: 10px;
+  margin: 10px 0 0 0;
+}
+
+.container h4 {
+  color: #82491eff;
+  margin: 10px 0 0 0;
+}

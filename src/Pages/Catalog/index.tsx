@@ -1,10 +1,11 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Characters from '../../components/Characters';
 import Heart from '../../components/FavoriteHeart';
 import './styles.css';
 import { ShowHideFavorite } from './_components/ShowHideFavorite';
+import { useDispatch, useSelector } from 'react-redux';
+import { charListSlice, fetchCharList } from './slice/catalogSlice';
 
 interface charsProps {
   name: string;
@@ -21,41 +22,24 @@ interface charsProps {
 }
 
 function Catalog() {
-  const [characters, setCharacters] = useState<charsProps[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [favorites, setFavorites] = useState<number[]>([]);
-  const [showFavorites, setShowFavorites] = useState(false);
+  const dispatch = useDispatch();
+  const { charList, loading, error } = useSelector((store: any) => {
+    return store.charList;
+  });
 
   useEffect(() => {
-    axios
-      .get('https://rickandmortyapi.com/api/character')
-      .then((response) => {
-        setCharacters(response.data.results);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+    dispatch(fetchCharList() as any);
+  }, [dispatch]);
 
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
+    dispatch(charListSlice.actions.filterCharacter(event.target.value));
   };
 
   const handleFavoriteClick = (id: number) => {
-    if (favorites.includes(id)) {
-      setFavorites(favorites.filter((favId) => favId !== id));
-    } else {
-      setFavorites([...favorites, id]);
-    }
+    dispatch(charListSlice.actions.toggleFavorite(id));
   };
-
-  const filteredCharacters = characters.filter((character) =>
-    character.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const displayedCharacters = showFavorites
-    ? filteredCharacters.filter((character) => favorites.includes(character.id))
-    : filteredCharacters;
 
   return (
     <>
@@ -72,35 +56,50 @@ function Catalog() {
             placeholder='Find a character'
             onChange={handleSearchInputChange}
           />
-          <ShowHideFavorite
-            showFavorites={showFavorites ? 'Hide Favorites' : 'Show Favorites'}
-            onHearCLick={() => setShowFavorites(!showFavorites)}
-          />
+          <ShowHideFavorite />
         </div>
       </header>
       <div className='catalog-container'>
-        {displayedCharacters.map(
-          ({ name, image, id, status, species, type, gender, origin, location, episode }) => (
-            <div className='card' key={id}>
-              <Link
-                to={{ pathname: `/${id}` }}
-                state={{
-                  name: name,
-                  image: image,
-                  id: id,
-                  status: status,
-                  species: species,
-                  type: type,
-                  gender: gender,
-                  origin: origin,
-                  location: location,
-                  episode: episode
-                }}
-              >
-                <Characters name={name} image={image} />
-              </Link>
-              <Heart onHearCLick={() => handleFavoriteClick(id)} />
-            </div>
+        {loading ? (
+          <div>loading</div>
+        ) : error ? (
+          <div>error</div>
+        ) : (
+          charList.map(
+            ({
+              name,
+              image,
+              id,
+              status,
+              species,
+              type,
+              gender,
+              origin,
+              location,
+              favorite,
+              episode
+            }: any) => (
+              <div className='card' key={id}>
+                <Link
+                  to={{ pathname: `/${id}` }}
+                  state={{
+                    name: name,
+                    image: image,
+                    id: id,
+                    status: status,
+                    species: species,
+                    type: type,
+                    gender: gender,
+                    origin: origin,
+                    location: location,
+                    episode: episode
+                  }}
+                >
+                  <Characters name={name} image={image} />
+                </Link>
+                <Heart isClicked={favorite} onHearClick={() => handleFavoriteClick(id)} />
+              </div>
+            )
           )
         )}
       </div>

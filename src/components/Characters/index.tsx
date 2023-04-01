@@ -1,4 +1,3 @@
-import Heart from '../FavoriteHeart';
 import './styles.css';
 
 interface CharactersProps {

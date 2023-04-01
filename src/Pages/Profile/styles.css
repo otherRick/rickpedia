@@ -88,3 +88,14 @@
   border-radius: 12px;
   box-shadow: inset 5px 5px 10px #a9a9aa77, inset -5px -5px 10px #ffffff7e;
 }
+
+.flip-card-front div h2 {
+  position: static;
+  color: #24325fff;
+}
+
+.flip-card-back div h2 {
+  position: absolute;
+  top: 5%;
+  color: #24325fff;
+}
